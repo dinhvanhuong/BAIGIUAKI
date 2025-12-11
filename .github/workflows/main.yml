@@ -1,0 +1,38 @@
+# .github/workflows/main.yml
+
+name: CI/CD Pipeline cho BAIGIUAKI
+
+on:
+  push:
+    branches: [ main, master ] # Kích hoạt khi có code được đẩy lên nhánh main hoặc master
+  pull_request:
+    branches: [ main, master ] # Kích hoạt khi có Pull Request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Bước 1: Checkout Code (Lấy code từ GitHub về máy ảo)
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # Bước 2: Cài đặt Node.js (cần thiết cho sever.js)
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18' # Bạn có thể chọn phiên bản Node.js phù hợp
+
+    # Bước 3: Cài đặt Dependencies (nếu có file package.json)
+    - name: Install dependencies (nếu có)
+      # Giả sử bạn đang dùng Node.js và có package.json trong thư mục gốc
+      run: npm install
+
+    # Bước 4: Chạy Build hoặc Test (Kiểm thử đơn giản)
+    - name: Run a simple test
+      run: |
+        echo "Running static check for index.html"
+        grep "Hello Git" index.html # Kiểm tra xem chuỗi có tồn tại trong index.html không
+        echo "Successfully passed basic checks"
+
+    # Ghi chú: Nếu bạn muốn Deploy, bạn sẽ thêm một Job 'deploy' sau Job 'build' này.
