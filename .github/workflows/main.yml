@@ -27,6 +27,7 @@ jobs:
     - name: Install dependencies (nếu có)
       # Giả sử bạn đang dùng Node.js và có package.json trong thư mục gốc
       run: npm install
+      woking-directory: ./server
 
     # Bước 4: Chạy Build hoặc Test (Kiểm thử đơn giản)
     - name: Run a simple test
